@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import TweetDeck from '../components/TweetDeck';
+import TweetDeckContainer from '../containers/TweetDeckContainer';
 
 class Home extends Component {
   render() {
-    const { handles } = this.props.home;
+    const {
+      app: { handles, tweets },
+    } = this.props;
     const span = 24 / handles.length;
     return (
       <div>
@@ -14,7 +16,7 @@ class Home extends Component {
           {handles.map(handle => {
             return (
               <Col key={handle} span={8}>
-                <TweetDeck handle={handle} />
+                <TweetDeckContainer handle={handle} tweets={tweets[handle]} />
               </Col>
             );
           })}
@@ -24,9 +26,10 @@ class Home extends Component {
   }
 }
 Home.propTypes = {
-  home: PropTypes.object.isRequired,
+  app: PropTypes.object.isRequired,
 };
 const mapPropsToState = state => ({
-  home: state.home,
+  app: state.app,
 });
+
 export default connect(mapPropsToState)(Home);
