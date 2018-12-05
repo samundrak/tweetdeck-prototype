@@ -1,18 +1,17 @@
 import React from 'react';
 import { Skeleton, Switch, Card, Icon, Avatar } from 'antd';
+import TwitterLink from './TwitterLink';
 
 const { Meta } = Card;
 
-const Tweet = () => {
+const Tweet = ({ tweet }) => {
   return (
-    <Card style={{}} actions={[<Icon type="setting" />, <Icon type="edit" />]}>
+    <Card style={{}} actions={[<Icon type="rollback" />, <Icon type="edit" />]}>
       <Skeleton loading={false} avatar active>
         <Meta
-          avatar={
-            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-          }
-          title="Card title"
-          description="This is the description"
+          avatar={<Avatar src={tweet.user.profile_image_url} />}
+          title={<TwitterLink handle={tweet.user.screen_name} />}
+          description={tweet.text}
         />
       </Skeleton>
     </Card>

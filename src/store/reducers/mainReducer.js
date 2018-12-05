@@ -2,7 +2,7 @@ import { set } from 'dot-prop-immutable';
 import { FETCH_TWEETS } from '../actions/types';
 
 const intialState = {
-  handles: ['MakeSchool'], //'newsycombinator', 'ycombinator'
+  handles: ['ycombinator'], //'newsycombinator', 'ycombinator','MakeSchool
   tweets: {},
 };
 
