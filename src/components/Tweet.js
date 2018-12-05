@@ -6,7 +6,7 @@ const { Meta } = Card;
 
 const Tweet = ({ tweet }) => {
   return (
-    <Card style={{}} actions={[<Icon type="rollback" />, <Icon type="edit" />]}>
+    <Card style={{}}>
       <Skeleton loading={false} avatar active>
         <Meta
           avatar={<Avatar src={tweet.user.profile_image_url} />}
