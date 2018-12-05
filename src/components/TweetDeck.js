@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Scrollbars } from 'react-custom-scrollbars';
 import Tweets from './Tweets';
 
 const TweetDeckBox = styled.div`
@@ -20,6 +21,9 @@ const TitleHeader = styled.div`
 `;
 const TweetsHolder = styled.div`
   margin-top: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f5f8fa;
 `;
 class TweetDeck extends Component {
   render() {
@@ -36,7 +40,9 @@ class TweetDeck extends Component {
           </a>
         </TitleHeader>
         <TweetsHolder>
-          <Tweets />
+          <Scrollbars style={{ height: '100vh' }}>
+            <Tweets />
+          </Scrollbars>
         </TweetsHolder>
       </TweetDeckBox>
     );
