@@ -4,14 +4,35 @@ import TweetDeck from '../components/TweetDeck';
 import { fetchTweetsAction } from '../store/actions/fetchTweetActions';
 
 class TweetDeckContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoadingTweets: false,
+    };
+  }
   componentDidMount() {
-    this.props.fetchTweetsAction({
-      count: 30,
-      screenName: this.props.handle,
+    this.setState({
+      isLoadingTweets: true,
     });
+    this.props
+      .fetchTweetsAction({
+        count: 30,
+        screenName: this.props.handle,
+      })
+      .finally(() => {
+        this.setState({
+          isLoadingTweets: false,
+        });
+      });
   }
   render() {
-    return <TweetDeck tweets={this.props.tweets} handle={this.props.handle} />;
+    return (
+      <TweetDeck
+        isLoading={this.state.isLoadingTweets}
+        tweets={this.props.tweets}
+        handle={this.props.handle}
+      />
+    );
   }
 }
 

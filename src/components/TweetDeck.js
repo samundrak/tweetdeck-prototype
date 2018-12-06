@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spin } from 'antd';
 import renderIf from 'render-if';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -27,19 +28,21 @@ const TweetsHolder = styled.div`
   border-width: 1px;
   border-color: #f5f8fa;
 `;
-const TweetDeck = ({ handle, tweets }) => (
+const TweetDeck = ({ handle, tweets, isLoading }) => (
   <TweetDeckBox>
     <TitleHeader>
       <a href={`https://twitter.com/${handle}`} target="_blank" rel="noopener">
         @{handle}
       </a>
     </TitleHeader>
-    <TweetsHolder>
-      <Scrollbars style={{ height: '100vh' }}>
-        {renderIf(tweets)(<Tweets tweets={tweets} />)}
-        {!tweets && <p>No tweets</p>}
-      </Scrollbars>
-    </TweetsHolder>
+    <Spin spinning={isLoading}>
+      <TweetsHolder>
+        <Scrollbars style={{ height: '100vh' }}>
+          {renderIf(tweets)(<Tweets tweets={tweets} />)}
+          {!tweets && !isLoading && <p>No tweets</p>}
+        </Scrollbars>
+      </TweetsHolder>
+    </Spin>
   </TweetDeckBox>
 );
 export default TweetDeck;

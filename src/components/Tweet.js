@@ -17,6 +17,9 @@ const Counts = styled.span``;
 const Footer = styled.div`
   padding-left: 10px;
 `;
+const gotoTweet = (handle, tweetId) => () => {
+  return window.open(`https://twitter.com/${handle}/status${tweetId}`);
+};
 const Tweet = ({ tweet }) => {
   return (
     <Card
@@ -37,7 +40,14 @@ const Tweet = ({ tweet }) => {
         <Meta
           avatar={<Avatar src={tweet.user.profile_image_url} />}
           title={<TwitterLink handle={tweet.user.screen_name} />}
-          description={tweet.text}
+          description={
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={gotoTweet(tweet.user.screen_name, tweet.id_str)}
+            >
+              {tweet.text}
+            </div>
+          }
         />
       </Skeleton>
     </Card>
