@@ -43,14 +43,14 @@ class Home extends Component {
       app: { tweets, preferences },
     } = this.props;
     const { handles } = preferences;
-    const span = 24 / handles.length;
+    const colSpan = 24 / handles.length;
     return (
       <div>
         <Modal
           onCancel={this.handleModalCancel}
           visible={this.state.isModalShown}
           title={
-            <span style={{ 'text-transform': 'capitalize' }}>
+            <span style={{ textTransform: 'capitalize' }}>
               {this.state.selectedModalMode}
             </span>
           }
@@ -61,7 +61,7 @@ class Home extends Component {
         <Row>
           {handles.map(handle => {
             return (
-              <Col key={handle} span={8}>
+              <Col key={handle} span={colSpan}>
                 <TweetDeckContainer
                   handle={handle}
                   tweets={tweets[handle]}

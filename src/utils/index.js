@@ -4,5 +4,5 @@ export const preferencesFactory = (preferences = {}) => ({
   theme: 'default',
   time: { from: null, to: null },
   tweetsPerColumn: 30,
-  handles: ['newsycombinator', 'ycombinator', 'MakeSchool'],
+  handles: ['kardnumas', 'newsycombinator', 'ycombinator', 'MakeSchool'],
 });

@@ -8,7 +8,7 @@ import Tweets from './Tweets';
 const TweetDeckBox = styled.div`
   border-right-style: solid;
   border-right-width: 5px;
-  border-right-color: white;
+  border-right-color: #1da1f2;
 `;
 const TitleHeader = styled.div`
     box-sizing: border-box;

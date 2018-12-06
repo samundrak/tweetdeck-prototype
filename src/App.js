@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 import { changePreferenceDrawerStatus } from './store/actions';
 import Home from './pages/Home';
 import CoreContext from './contexts/CoreContext';
+import './App.css';
 
 import AppLayout from './containers/AppLayout';
 

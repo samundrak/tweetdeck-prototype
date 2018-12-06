@@ -26,9 +26,9 @@ const AppLayout = ({
           <Menu.Item key="preferences">Preferences</Menu.Item>
         </Menu>
       </Header>
-      <Content style={{ padding: '0 50px' }}>
+      <Content style={{ padding: '0 50px', background: '#1da1f2' }}>
         <br />
-        <div style={{ background: '#fff', padding: 1 }}>{children}</div>
+        <div style={{ background: '#fff' }}>{children}</div>
         <Drawer
           width={720}
           title="Preferences"
