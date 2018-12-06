@@ -18,20 +18,24 @@ const Footer = styled.div`
   padding-left: 10px;
 `;
 const gotoTweet = (handle, tweetId) => () => {
-  return window.open(`https://twitter.com/${handle}/status${tweetId}`);
+  return window.open(`https://twitter.com/${handle}/status/${tweetId}`);
 };
-const Tweet = ({ tweet }) => {
+const Tweet = ({ tweet, handleActions }) => {
   return (
     <Card
       style={{}}
       actions={[
         <Fragment>
-          <Icon type="retweet" title="Retweets" />
-          <Counts> {tweet.retweet_count}</Counts>
+          <div onClick={handleActions({ type: 'retweets', tweet })}>
+            <Icon type="retweet" title="Retweets" />
+            <Counts> {tweet.retweet_count}</Counts>
+          </div>
         </Fragment>,
         <Fragment>
-          <Icon type="tag" title="mentions" />
-          <Counts> {tweet.entities.user_mentions.length || ''}</Counts>
+          <div onClick={handleActions({ type: 'mentions', tweet })}>
+            <Icon type="tag" title="mentions" />
+            <Counts> {tweet.entities.user_mentions.length || ''}</Counts>
+          </div>
         </Fragment>,
       ]}
     >

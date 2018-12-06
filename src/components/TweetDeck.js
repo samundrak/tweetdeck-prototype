@@ -28,7 +28,7 @@ const TweetsHolder = styled.div`
   border-width: 1px;
   border-color: #f5f8fa;
 `;
-const TweetDeck = ({ handle, tweets, isLoading }) => (
+const TweetDeck = ({ handle, tweets, isLoading, handleActions }) => (
   <TweetDeckBox>
     <TitleHeader>
       <a href={`https://twitter.com/${handle}`} target="_blank" rel="noopener">
@@ -38,7 +38,9 @@ const TweetDeck = ({ handle, tweets, isLoading }) => (
     <Spin spinning={isLoading}>
       <TweetsHolder>
         <Scrollbars style={{ height: '100vh' }}>
-          {renderIf(tweets)(<Tweets tweets={tweets} />)}
+          {renderIf(tweets)(
+            <Tweets tweets={tweets} handleActions={handleActions} />,
+          )}
           {!tweets && !isLoading && <p>No tweets</p>}
         </Scrollbars>
       </TweetsHolder>

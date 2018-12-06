@@ -2,6 +2,7 @@
   "name": "makeschoool-challenge",
   "dependencies": {
     "antd": "^3.11.0",
+    "auto-bind": "^1.2.1",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "date-fns": "^1.29.0",

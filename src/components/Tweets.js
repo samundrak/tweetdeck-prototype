@@ -1,11 +1,11 @@
 import React from 'react';
 import Tweet from './Tweet';
 
-const Tweets = ({ tweets }) => {
+const Tweets = ({ tweets, handleActions }) => {
   return (
     <div>
       {tweets.map(tweet => (
-        <Tweet tweet={tweet} key={tweet.id} />
+        <Tweet tweet={tweet} key={tweet.id} handleActions={handleActions} />
       ))}
     </div>
   );

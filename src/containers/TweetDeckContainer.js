@@ -28,6 +28,7 @@ class TweetDeckContainer extends React.Component {
   render() {
     return (
       <TweetDeck
+        handleActions={this.props.handleActions}
         isLoading={this.state.isLoadingTweets}
         tweets={this.props.tweets}
         handle={this.props.handle}
