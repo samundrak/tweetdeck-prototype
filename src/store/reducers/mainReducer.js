@@ -6,9 +6,9 @@ import {
 } from '../actions/types';
 
 const intialState = {
-  handles: ['MakeSchool'], //'newsycombinator', 'ycombinator','MakeSchool'
+  handles: [], //'newsycombinator', 'ycombinator','MakeSchool'
   tweets: {},
-  isPreferencesDrawerOpen: false,
+  isPreferencesDrawerOpen: true,
   preferences: null,
 };
 

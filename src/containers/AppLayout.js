@@ -30,7 +30,6 @@ const AppLayout = ({
         <br />
         <div style={{ background: '#fff' }}>{children}</div>
         <Drawer
-          width={720}
           title="Preferences"
           placement="right"
           closable={false}
