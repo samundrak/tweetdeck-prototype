@@ -40,8 +40,9 @@ class Home extends Component {
   }
   render() {
     const {
-      app: { handles, tweets },
+      app: { tweets, preferences },
     } = this.props;
+    const { handles } = preferences;
     const span = 24 / handles.length;
     return (
       <div>
