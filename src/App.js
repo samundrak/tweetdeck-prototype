@@ -24,7 +24,6 @@ class App extends Component {
     this.context.loadPreservedPreferences();
   }
   handleMenuClick(event) {
-    console.log(event);
     if (event.key === 'preferences') {
       this.changePreferenceDrawerStatus(true);
     }

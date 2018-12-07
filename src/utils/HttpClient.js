@@ -6,7 +6,6 @@ const validateStatus = function validateStatus(status) {
 const { protocol, hostname } = window.location;
 const PORT = 7820;
 const TWITTER_PROXY_SERVER = `${protocol}//${hostname}:7890/1.1/`;
-console.log(TWITTER_PROXY_SERVER);
 
 export default {
   app: function guest() {

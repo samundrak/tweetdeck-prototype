@@ -8,7 +8,7 @@ import {
 const intialState = {
   handles: [], //'newsycombinator', 'ycombinator','MakeSchool'
   tweets: {},
-  isPreferencesDrawerOpen: true,
+  isPreferencesDrawerOpen: false,
   preferences: null,
 };
 
