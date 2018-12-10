@@ -4,6 +4,6 @@ export const preferencesFactory = (preferences = {}) => ({
   theme: 'default',
   time: { from: null, to: null },
   tweetsPerColumn: 30,
-  handles: ['kardnumas', 'MakeSchool'],
+  handles: ['newsycombinator', 'ycombinator', 'makeschool'],
   themes: ['black', 'blue', 'red', 'green', 'purple', 'yellow'],
 });

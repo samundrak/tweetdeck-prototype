@@ -1,4 +1,8 @@
-import { HYDRATE_PREFERENCES, CHANGE_PREFERENCE_DRAWER_STATUS } from './types';
+import {
+  HYDRATE_PREFERENCES,
+  REORDER_TWEET_DECKS,
+  CHANGE_PREFERENCE_DRAWER_STATUS,
+} from './types';
 
 export const changePreferenceDrawerStatus = status => {
   return {
@@ -12,3 +16,7 @@ export const hydratePreferences = preferences => {
     payload: preferences,
   };
 };
+export const reorderTweetDecks = handles => ({
+  type: REORDER_TWEET_DECKS,
+  payload: handles,
+});

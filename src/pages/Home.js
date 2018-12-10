@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 import renderIf from 'render-if';
 import autobind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Modal, Avatar } from 'antd';
+import CoreContext from '../contexts/CoreContext';
 import TweetDeckContainer from '../containers/TweetDeckContainer';
 import AvatarsList from '../components/AvatarsList';
+import Droppable from '../components/dnd/Droppable';
+import Draggable from '../components/dnd/Draggable';
+import { reorderTweetDecks } from '../store/actions';
+import { PRESERVE_PREFERENCES } from '../consts';
 
 class Home extends Component {
   constructor(props) {
@@ -39,13 +45,21 @@ class Home extends Component {
       isModalShown: false,
     });
   }
-  onDragEnd(...args) {
-    console.log(args);
-    console.log('here ends drag');
+  onDragEnd(source, destination) {
+    const handles = this.props.app.preferences.handles;
+    const sourceIndex = handles.findIndex(handle => source.source === handle);
+    const destinationIndex = handles.findIndex(
+      handle => destination === handle,
+    );
+    const newHandles = [].concat(handles);
+    newHandles.splice(sourceIndex, 1, destination);
+    newHandles.splice(destinationIndex, 1, source.source);
+    this.props.reorderTweetDecks(newHandles);
+    this.context.emit(PRESERVE_PREFERENCES, this.props.app.preferences);
   }
   render() {
     const {
-      app: { tweets, preferences },
+      app: { tweets, preferences, tweetDeckKeys },
     } = this.props;
     const { handles } = preferences;
     const colSpan = 24 / handles.length;
@@ -64,39 +78,40 @@ class Home extends Component {
           <AvatarsList users={this.state.users} />
         </Modal>
         <Row>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            {handles.map((handle, index) => {
-              return (
-                <Droppable key={handle} droppableId={handle}>
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef}>
-                      <Draggable
-                        key={handle}
-                        draggableId={handle}
-                        index={index}
-                      >
-                        {(provided, snapshot) => (
-                          <Col key={handle} span={colSpan}>
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <TweetDeckContainer
-                                handle={handle}
-                                tweets={tweets[handle]}
-                                handleActions={this.handleActions}
-                              />
-                            </div>
-                          </Col>
-                        )}
-                      </Draggable>
-                    </div>
-                  )}
-                </Droppable>
-              );
-            })}
-          </DragDropContext>
+          {handles.map((handle, index) => {
+            return (
+              <Droppable
+                key={handle}
+                source={handle}
+                handleClone={this.onDragEnd.bind(this)}
+                onOver={() => (
+                  <div
+                    style={{
+                      fontSize: '20px',
+                      fontStyle: 'italic',
+                      zIndex: '1000',
+                      position: 'absolute',
+                      left: '40%',
+                      top: '40%',
+                    }}
+                  />
+                )}
+              >
+                <div>
+                  <Col key={handle} span={colSpan}>
+                    <Draggable item={{ handle }} source={handle}>
+                      <TweetDeckContainer
+                        key={tweetDeckKeys}
+                        handle={handle}
+                        tweets={tweets[handle]}
+                        handleActions={this.handleActions}
+                      />
+                    </Draggable>
+                  </Col>
+                </div>
+              </Droppable>
+            );
+          })}
         </Row>
       </div>
     );
@@ -108,5 +123,8 @@ Home.propTypes = {
 const mapPropsToState = state => ({
   app: state.app,
 });
-
-export default connect(mapPropsToState)(Home);
+Home.contextType = CoreContext;
+export default connect(
+  mapPropsToState,
+  { reorderTweetDecks },
+)(DragDropContext(HTML5Backend)(Home));

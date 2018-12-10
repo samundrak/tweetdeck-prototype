@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import renderIf from 'render-if';
-import { Layout, Menu, Breadcrumb, Drawer, Spin } from 'antd';
+import { Layout, Menu, Breadcrumb, Drawer, Spin, Icon } from 'antd';
 import Preferences from '../containers/Preferences';
 const { Header, Content, Footer } = Layout;
 const AppLayout = ({
@@ -23,10 +23,18 @@ const AppLayout = ({
           style={{ lineHeight: '64px' }}
         >
           <Menu.Item key="home">TweetDeck</Menu.Item>
-          <Menu.Item key="preferences">Preferences</Menu.Item>
+          <Menu.Item key="preferences">
+            <Icon type="setting" />
+          </Menu.Item>
         </Menu>
       </Header>
-      <Content style={{ padding: '0 50px', background: '#1da1f2' }}>
+      <Content
+        style={{
+          padding: '0 50px',
+          background:
+            preferences.theme === 'default' ? '#1da1f2' : preferences.theme,
+        }}
+      >
         <br />
         <div style={{ background: '#fff' }}>{children}</div>
         <Drawer
@@ -46,6 +54,9 @@ const AppLayout = ({
 };
 AppLayout.defaultProps = {
   children: <div />,
+  preferences: {
+    theme: 'default',
+  },
 };
 AppLayout.propTypes = {
   children: PropTypes.node,

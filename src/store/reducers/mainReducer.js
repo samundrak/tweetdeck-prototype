@@ -1,13 +1,14 @@
 import { set } from 'dot-prop-immutable';
 import {
   FETCH_TWEETS,
+  REORDER_TWEET_DECKS,
   CHANGE_PREFERENCE_DRAWER_STATUS,
   HYDRATE_PREFERENCES,
 } from '../actions/types';
 
 const intialState = {
-  handles: [], //'newsycombinator', 'ycombinator','MakeSchool'
   tweets: {},
+  tweetDeckKeys: Date.now(),
   isPreferencesDrawerOpen: false,
   preferences: null,
 };
@@ -19,7 +20,10 @@ export default (state = intialState, action) => {
     case CHANGE_PREFERENCE_DRAWER_STATUS:
       return set(state, 'isPreferencesDrawerOpen', action.payload);
     case HYDRATE_PREFERENCES:
-      return set(state, 'preferences', action.payload);
+      const newState = set(state, 'tweetDeckKeys', Date.now());
+      return set(newState, 'preferences', action.payload);
+    case REORDER_TWEET_DECKS:
+      return set(state, 'preferences.handles', action.payload);
     default:
       return state;
   }

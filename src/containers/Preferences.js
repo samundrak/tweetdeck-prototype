@@ -5,7 +5,10 @@ import { message, Form, Input, DatePicker, Button } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { PRESERVE_PREFERENCES } from '../consts';
-import { hydratePreferences } from '../store/actions';
+import {
+  hydratePreferences,
+  changePreferenceDrawerStatus,
+} from '../store/actions';
 
 import CoreContext from '../contexts/CoreContext';
 
@@ -101,6 +104,7 @@ class Preferences extends React.Component {
     this.props.hydratePreferences(this.state.preferences);
     this.context.emit(PRESERVE_PREFERENCES, this.state.preferences);
     message.success('Preferences has been saved successfully.');
+    this.props.changePreferenceDrawerStatus(false);
   }
   render() {
     const { preferences } = this.state;
@@ -142,5 +146,5 @@ const mapStateToProps = state => ({
 Preferences.contextType = CoreContext;
 export default connect(
   mapStateToProps,
-  { hydratePreferences },
+  { hydratePreferences, changePreferenceDrawerStatus },
 )(Preferences);

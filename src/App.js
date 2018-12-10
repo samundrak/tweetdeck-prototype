@@ -36,20 +36,23 @@ class App extends Component {
   }
   render() {
     const { isPreferencesDrawerOpen, preferences } = this.props.app;
+
     return (
       <Router>
-        <AppLayout
-          preferences={preferences}
-          handleMenuClick={this.handleMenuClick}
-          isPreferencesVisible={isPreferencesDrawerOpen}
-          handlePreferenceClose={this.handlePreferenceClose}
-        >
-          {renderIf(preferences)(
-            <Switch>
-              <Route exact path="/" component={Home} />
-            </Switch>,
-          )}
-        </AppLayout>
+        {renderIf(preferences)(
+          <AppLayout
+            preferences={preferences}
+            handleMenuClick={this.handleMenuClick}
+            isPreferencesVisible={isPreferencesDrawerOpen}
+            handlePreferenceClose={this.handlePreferenceClose}
+          >
+            {renderIf(preferences)(
+              <Switch>
+                <Route exact path="/" component={Home} />
+              </Switch>,
+            )}
+          </AppLayout>,
+        )}
       </Router>
     );
   }
