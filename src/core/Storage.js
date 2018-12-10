@@ -1,4 +1,5 @@
 import { set, get } from 'dot-prop-immutable';
+
 class Storage {
   constructor() {
     if (Storage.INSTANCE) {
@@ -19,12 +20,7 @@ class Storage {
     return get(data, key);
   }
   set(key, value) {
-    this.platform.setItem(
-      this.dbName,
-      JSON.stringify(
-        set(JSON.parse(this.platform.getItem(this.dbName) || '{}'), key, value),
-      ),
-    );
+    this.platform.setItem(this.dbName, JSON.stringify(set(JSON.parse(this.platform.getItem(this.dbName) || '{}'), key, value)));
   }
 }
 Storage.INSTANCE = null;
