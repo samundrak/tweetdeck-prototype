@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'auto-bind';
 import renderIf from 'render-if';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import 'antd/dist/antd.css';
 import { changePreferenceDrawerStatus } from './store/actions';
 import Home from './pages/Home';
@@ -13,7 +13,7 @@ import './App.css';
 import AppLayout from './containers/AppLayout';
 
 class App extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
     autobind(this);
     this.state = {
@@ -61,6 +61,13 @@ App.contextType = CoreContext;
 const mapStateToProps = state => ({
   app: state.app,
 });
+App.propTypes = {
+  app: PropTypes.objectOf({
+    isPreferencesDrawerOpen: PropTypes.bool.isRequired,
+    preferences: PropTypes.object.isRequired,
+  }).isRequired,
+  changePreferenceDrawerStatus: PropTypes.func.isRequired,
+};
 export default connect(
   mapStateToProps,
   { changePreferenceDrawerStatus },

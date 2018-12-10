@@ -21,21 +21,12 @@ function collect(connect, monitor) {
   };
 }
 const Droppable = props => {
-  const {
-    isOver,
-    connectDropTarget,
-    item,
-    handleRemoveCard,
-    index,
-    parentIndex,
-  } = props;
+  const { isOver, connectDropTarget, item, handleRemoveCard, index, parentIndex } = props;
   const isSameBox = item && item.source === props.source;
   return connectDropTarget(
     <div>
       {isOver && props.onOver && !isSameBox && props.onOver()}
-      <div style={{ opacity: !isSameBox && isOver ? 0.5 : 1 }}>
-        {props.children}
-      </div>
+      <div style={{ opacity: !isSameBox && isOver ? 0.5 : 1 }}>{props.children}</div>
     </div>,
   );
 };

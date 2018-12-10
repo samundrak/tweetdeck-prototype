@@ -31,14 +31,12 @@ const propTypes = {
   children: PropTypes.element.isRequired,
   connectDragSource: PropTypes.func.isRequired,
 };
-const Draggable = props => {
+const Draggable = (props) => {
   const { isDragging, connectDragSource } = props;
   return props.disableDragging ? (
     <div>{props.children}</div>
   ) : (
-    connectDragSource(
-      <div style={{ opacity: isDragging ? 0.5 : 1 }}>{props.children}</div>,
-    )
+    connectDragSource(<div style={{ opacity: isDragging ? 0.5 : 1 }}>{props.children}</div>)
   );
 };
 Draggable.propTypes = propTypes;

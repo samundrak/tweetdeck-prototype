@@ -1,14 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'auto-bind';
 import { connect } from 'react-redux';
 import { message, Form, Input, DatePicker, Button } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { PRESERVE_PREFERENCES } from '../consts';
-import {
-  hydratePreferences,
-  changePreferenceDrawerStatus,
-} from '../store/actions';
+import { hydratePreferences, changePreferenceDrawerStatus } from '../store/actions';
 
 import CoreContext from '../contexts/CoreContext';
 
@@ -24,7 +22,7 @@ const ThemePallet = styled.div`
   }
 `;
 const FormItem = Form.Item;
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 const formItemLayout = {
   labelCol: {
@@ -46,7 +44,8 @@ class Preferences extends React.Component {
     };
   }
   componentDidMount() {
-    this.setState({
+    // prettier-ignore
+    this.setState({// eslint-disable-line
       preferences: Object.assign({}, this.props.preferences),
     });
   }
@@ -55,29 +54,14 @@ class Preferences extends React.Component {
       this.setState({
         preferences: {
           ...this.state.preferences,
-          theme: theme,
+          theme,
         },
       });
     };
   }
-  renderThemePallets(themes) {
-    return (
-      <div>
-        {themes.map(theme => {
-          return (
-            <ThemePallet
-              selected={this.state.preferences.theme}
-              onClick={this.handleThemeSelection(theme)}
-              key={theme}
-              theme={theme}
-            />
-          );
-        })}
-      </div>
-    );
-  }
+
   handleTimeRangeChange(ranges) {
-    const [rangeFrom, rangeTo] = ranges.map(moment => moment.toString());
+    const [rangeFrom, rangeTo] = ranges.map(momentObj => momentObj.toString());
     this.setState({
       preferences: {
         ...this.state.preferences,
@@ -106,25 +90,27 @@ class Preferences extends React.Component {
     message.success('Preferences has been saved successfully.');
     this.props.changePreferenceDrawerStatus(false);
   }
+  renderThemePallets(themes) {
+    return (
+      <div>
+        {themes.map(theme => (
+          <ThemePallet selected={this.state.preferences.theme} onClick={this.handleThemeSelection(theme)} key={theme} theme={theme} />
+        ))}
+      </div>
+    );
+  }
   render() {
     const { preferences } = this.state;
     if (!preferences) return null;
     return (
       <Form onSubmit={this.handleFormSubmit}>
         <FormItem {...formItemLayout} label="Tweets">
-          <Input
-            type="number"
-            value={preferences.tweetsPerColumn}
-            onChange={this.handleTweetPerColumnChange}
-          />
+          <Input type="number" value={preferences.tweetsPerColumn} onChange={this.handleTweetPerColumnChange} />
         </FormItem>
         <FormItem {...formItemLayout} label="Tweet Range">
           <RangePicker
             onChange={this.handleTimeRangeChange}
-            value={[
-              moment(new Date(preferences.time.from)),
-              moment(new Date(preferences.time.to)),
-            ]}
+            value={[moment(new Date(preferences.time.from)), moment(new Date(preferences.time.to))]}
           />
         </FormItem>
         <FormItem {...formItemLayout} label="Select Theme">
@@ -144,6 +130,14 @@ const mapStateToProps = state => ({
   preferences: state.app.preferences,
 });
 Preferences.contextType = CoreContext;
+Preferences.defaultProps = {
+  preferences: null,
+};
+Preferences.propTypes = {
+  changePreferenceDrawerStatus: PropTypes.func.isRequired,
+  hydratePreferences: PropTypes.func.isRequired,
+  preferences: PropTypes.oneOfType([PropTypes.object]),
+};
 export default connect(
   mapStateToProps,
   { hydratePreferences, changePreferenceDrawerStatus },

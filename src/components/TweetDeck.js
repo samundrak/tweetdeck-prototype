@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 import renderIf from 'render-if';
 import styled from 'styled-components';
@@ -38,13 +39,17 @@ const TweetDeck = ({ handle, tweets, isLoading, handleActions }) => (
     <Spin spinning={isLoading}>
       <TweetsHolder>
         <Scrollbars style={{ height: '100vh' }}>
-          {renderIf(tweets)(
-            <Tweets tweets={tweets} handleActions={handleActions} />,
-          )}
+          {renderIf(tweets)(<Tweets tweets={tweets} handleActions={handleActions} />)}
           {!tweets && !isLoading && <p>No tweets</p>}
         </Scrollbars>
       </TweetsHolder>
     </Spin>
   </TweetDeckBox>
 );
+TweetDeck.propTypes = {
+  handle: PropTypes.string.isRequired,
+  tweets: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  handleActions: PropTypes.func.isRequired,
+};
 export default TweetDeck;

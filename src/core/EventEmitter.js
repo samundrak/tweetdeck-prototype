@@ -50,11 +50,11 @@ class EventEmitter {
       this._onEveryCallback(eventType, data);
     }
     if (!once && !regular) return;
-    (once.get(eventType) || []).forEach(listener => {
+    (once.get(eventType) || []).forEach((listener) => {
       listener({ ...data, eventType });
     });
     once.delete(eventType);
-    (regular.get(eventType) || []).forEach(listener => {
+    (regular.get(eventType) || []).forEach((listener) => {
       listener({ ...data, eventType });
     });
   }
