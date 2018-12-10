@@ -40,6 +40,9 @@ class TweetDeckContainer extends React.Component {
 }
 
 const mapStateToProps = () => ({});
+TweetDeckContainer.defaultProps = {
+  tweets: [],
+};
 TweetDeckContainer.propTypes = {
   handle: PropTypes.string.isRequired,
   tweets: PropTypes.array.isRequired,

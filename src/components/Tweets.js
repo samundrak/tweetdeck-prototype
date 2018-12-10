@@ -9,8 +9,11 @@ const Tweets = ({ tweets, handleActions }) => (
     ))}
   </div>
 );
+Tweets.defaultProps = {
+  tweets: [],
+};
 Tweets.propTypes = {
-  tweets: PropTypes.array.isRequired,
+  tweets: PropTypes.array,
   handleActions: PropTypes.func.isRequired,
 };
 export default Tweets;

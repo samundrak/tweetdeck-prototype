@@ -62,10 +62,7 @@ const mapStateToProps = state => ({
   app: state.app,
 });
 App.propTypes = {
-  app: PropTypes.objectOf({
-    isPreferencesDrawerOpen: PropTypes.bool.isRequired,
-    preferences: PropTypes.object.isRequired,
-  }).isRequired,
+  app: PropTypes.object.isRequired,
   changePreferenceDrawerStatus: PropTypes.func.isRequired,
 };
 export default connect(

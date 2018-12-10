@@ -36,11 +36,14 @@ AppLayout.defaultProps = {
     theme: 'default',
   },
 };
+AppLayout.defaultProps = {
+  preferences: null,
+};
 AppLayout.propTypes = {
   handleMenuClick: PropTypes.func.isRequired,
   isPreferencesVisible: PropTypes.bool.isRequired,
   handlePreferenceClose: PropTypes.func.isRequired,
-  preferences: PropTypes.func.isRequired,
+  preferences: PropTypes.object,
   children: PropTypes.node,
 };
 export default AppLayout;
